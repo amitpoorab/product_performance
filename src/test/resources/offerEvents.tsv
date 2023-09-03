@@ -1,0 +1,9 @@
+2023-01-01T000000	rendered_impressions	eventsid1	coreActionEventID1	desktop	merchant1	product12	desktop	control
+2023-01-01T000000	rendered_impressions	eventsid2	coreActionEventID1	desktop	merchant1	product12	desktop	control
+2023-01-01T000000	rendered_impressions	eventsid3	coreActionEventID1	desktop	merchant1	product12	desktop	control
+2023-01-01T000000	rendered_impressions	eventsid1	coreActionEventID1	desktop	merchant2	product21	desktop	control
+2023-01-01T000000	rendered_impressions	eventsid2	coreActionEventID1	desktop	merchant2	product21	desktop	control
+2023-01-01T000000	rendered_impressions	eventsid3	coreActionEventID1	desktop	merchant2	product21	desktop	control
+2023-01-01T000000	rendered_impressions	eventsid1	coreActionEventID1	desktop	merchant3	product31	desktop	control
+2023-01-01T000000	rendered_impressions	eventsid2	coreActionEventID1	desktop	merchant3	product31	desktop	control
+2023-01-01T000000	rendered_impressions	eventsid3	coreActionEventID1	desktop	merchant3	product32	desktop	control
