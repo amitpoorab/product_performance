@@ -2,14 +2,14 @@ package spark_scala.merchnat_page
 
 import java.time.{Instant}
 import org.rogach.scallop.ScallopConf
-
-
-import org.apache.spark.sql.{DataFrame, SQLContext}
-import spark_scala.{AbstractsJob, Common}
 import org.apache.spark.sql.{Column, DataFrame, Row}
 import org.apache.spark.sql.functions._
 import org.apache.spark.sql.types.{ArrayType, StringType, StructField, StructType}
 import org.apache.spark.sql.functions.{coalesce, col, explode, lit, lower, max, row_number, when, udf}
+
+import org.apache.spark.sql.{DataFrame, SQLContext}
+import spark_scala.{AbstractsJob, Common}
+import spark_scala.golden_dataset
 
 
 case class MerchantPageProductRankingsParams( startTs: Instant,
@@ -39,8 +39,8 @@ val schema = StructType(Seq(
 )
 
 class Parser(arguments: Seq[String]) extends ScallopConf(arguments){
-	val startTs = opt[String](required = true, descr = "Strat time stamp")
-	val endTs = opt[String](required = true, descr = "end time stamp")
+	val startTs = opt[String](required = true, descr = "Start timestamp")
+	val endTs = opt[String](required = true, descr = "end timestamp")
 	val eventDataPath = opt[String](required = true, descr = "event data path")
 	verify()
 }

@@ -1,0 +1,9 @@
+2023-01-01T000000	rendered_impressions	eventsid1	2023-01-01T01:00:00z			desktop	merchant1	product12	control 2
+2023-01-01T000000	rendered_impressions	eventsid2	2023-01-01T01:00:00z	coreActionEventID1	2023-01-01T01:00:00z	desktop	merchant1	product12	control	1	OnlineClick
+2023-01-01T000000	rendered_impressions	eventsid3	2023-01-01T01:00:00z	coreActionEventID1	2023-01-01T01:00:00z	desktop	merchant1	product12	control	1	OnlineOrder
+2023-01-01T000000	rendered_impressions	eventsid1	2023-01-01T01:00:00z	coreActionEventID1	2023-01-01T01:00:00z	desktop	merchant2	product21	control	2	OnlineClick
+2023-01-01T000000	rendered_impressions	eventsid2	2023-01-01T01:00:00z	coreActionEventID1	2023-01-01T01:00:00z	desktop	merchant2	product21	control	2	OnlineClick
+2023-01-01T000000	rendered_impressions	eventsid3	2023-01-01T01:00:00z	coreActionEventID1	2023-01-01T01:00:00z	desktop	merchant2	product21	control	3	OnlineClick
+2023-01-01T000000	rendered_impressions	eventsid1	2023-01-01T01:00:00z	coreActionEventID1	2023-01-01T01:00:00z	desktop	merchant3	product31	control	3	OnlineClick
+2023-01-01T000000	rendered_impressions	eventsid2	2023-01-01T01:00:00z	coreActionEventID1	2023-01-01T01:00:00z	desktop	merchant3	product31	control	3	OnlineClick
+2023-01-02T000000	rendered_impressions	eventsid3	2023-01-02T01:00:00z	coreActionEventID1	2023-01-02T01:00:00z	desktop	merchant3	product32	control	3	OnlineClick
