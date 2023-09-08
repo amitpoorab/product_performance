@@ -2,19 +2,15 @@ package spark_scala.merchnat_page
 
 import java.time.{Instant}
 import org.rogach.scallop.ScallopConf
-import org.apache.spark.sql.{Column, DataFrame, Row}
 import org.apache.spark.sql.functions._
-import org.apache.spark.sql.types.{ArrayType, StringType, StructField, StructType}
 import org.apache.spark.sql.functions.{coalesce, col, explode, lit, lower, max, row_number, when, udf}
 import org.apache.spark.sql.{SQLContext, SparkSession}
-import org.apache.spark.SparkContext 
+import org.apache.spark.SparkContext
 import org.apache.spark.sql.{DataFrame, SQLContext}
 import spark_scala.{AbstractsJob, Common}
-import spark_scala.golden_dataset
 import spark_scala.utils.StringUtils.parseDateFromString
 
 import java.time.{Instant, ZoneOffset}
-import scala.util.Try
 
 
 case class ProductCoreActionsParams( sc: SparkContext,
@@ -50,7 +46,7 @@ object ProductCoreActions extends AbstractsJob[ProductCoreActionsParams,
 			.agg(countDistinct("eventInstanceUuid", "coreActionTimestamp").as("coreActionCount"))
 			.groupBy("experimentSlice","productID", "platform", "rank")
 			.pivot("coreAction")
-			.agg(sum(col("coreActionCount")))
+			.agg(sum(col("coreActionCount")))			
 	}
 
 	def joinImpsAndCoreActions(impressionsAgg: DataFrame, coreActionsAgg: DataFrame): DataFrame = {
@@ -75,6 +71,20 @@ object ProductCoreActions extends AbstractsJob[ProductCoreActionsParams,
 		val coreActionsFilteredByTime = filterByTime(params.eventDF, params.startTs, params.endTs)
 		val aggregatedCoreAction = aggregateCoreActions(coreActionsFilteredByTime)
 		val aggregatedImpressions = aggregateImpressions(coreActionsFilteredByTime)
+
+		val aggregatedCoreActionCorrected	= aggregatedCoreAction.withColumn(
+			  "OnlineOrderCnt",
+			  	when(
+			    		col("OnlineOrder").isNotNull,
+			    		aggregatedCoreAction("OnlineOrder")
+			  		).otherwise(lit(0))
+				)
+
+		coreActionsFilteredByTime.show()
+		aggregatedCoreAction.show(false)
+		aggregatedCoreActionCorrected.show(false)
+		aggregatedCoreActionCorrected.printSchema()
+
 		val joinedImpsAndAgg = joinImpsAndCoreActions(aggregatedImpressions, aggregatedCoreAction)		
 		ProductCoreActionsResults(joinedImpsAndAgg)
 	}
@@ -89,7 +99,7 @@ class Parser(arguments: Seq[String]) extends ScallopConf(arguments){
 
 def main(args: Array[String]) = {
 	val parsedArguments = new Parser(args)
-	val (sc, sqlContext) = Common.getSparkContext("merchantProductPage")
+	val (sc, sqlContext, sparkSession) = Common.getSparkContext("merchantProductPage")
 	// import sc.implicits._
 
 
@@ -104,6 +114,7 @@ def main(args: Array[String]) = {
 											  , startTs
 											  , endTs	
 											  , eventDF))
+
 	}
 
 

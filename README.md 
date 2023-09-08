@@ -1,1 +1,17 @@
-ReadME
+Spark RDD, dataframe and Dataset API with some real world example
+=======
+
+This spark code is fully testable on local machine. This is great way of
+writing quality spark code pretty fast.
+
+# Overview
+This repository demonstrates how to generate testable spark/scala code with an example of how to
+generate product rankings for e-commerce.
+The idea here is to use product performance and other metadata indicators as an indicator of those
+product's future rankings.
+
+This is a relatively simple algorithm, primarily designed for learning how to produce testable Spark Scala code.
+
+# Run tests
+    SBT clean assembly
+

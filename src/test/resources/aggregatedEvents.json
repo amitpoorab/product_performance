@@ -1,0 +1,5 @@
+{"experimentSlice":"control","productID":"product1","platform":"desktop","rank":"3","renderedImpressions":2,"onlineClick":2}
+{"experimentSlice":"control","productID":"product2","platform":"desktop","rank":"2","renderedImpressions":2,"onlineClick":2}
+{"experimentSlice":"control","productID":"product3","platform":"desktop","rank":"3","renderedImpressions":1,"onlineClick":1}
+{"experimentSlice":"control","productID":"product4","platform":"desktop","rank":"1","renderedImpressions":2,"onlineClick":1,"onlineOrder":1}
+{"experimentSlice":"control","productID":"product5","platform":"desktop","rank":"2","renderedImpressions":1}

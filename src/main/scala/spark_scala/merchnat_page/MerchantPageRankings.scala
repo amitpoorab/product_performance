@@ -1,16 +1,8 @@
-package spark_scala.merchnat_page
+package spark_scala.merchant_page
 
 import java.time.{Instant}
 import org.rogach.scallop.ScallopConf
-import org.apache.spark.sql.{Column, DataFrame, Row}
-import org.apache.spark.sql.functions._
-import org.apache.spark.sql.types.{ArrayType, StringType, StructField, StructType}
-import org.apache.spark.sql.functions.{coalesce, col, explode, lit, lower, max, row_number, when, udf}
-
-import org.apache.spark.sql.{DataFrame, SQLContext}
 import spark_scala.{AbstractsJob, Common}
-import spark_scala.golden_dataset
-
 
 case class MerchantPageProductRankingsParams( startTs: Instant,
 										endTs: Instant,
@@ -28,16 +20,6 @@ def run(params: MerchantPageProductRankingsParams): MerchantPageProductRankingsR
 	MerchantPageProductRankingsResults(params.eventDF)
 }
 
-val schema = StructType(Seq(
-			StructField("core", StructType(Seq(
-				StructField("productID", StringType, true),
-				StructField("productID", StringType, true),
-				StructField("productID", StringType, true),
-				StructField("productID", StringType, true)	
-			)), true)
-	)
-)
-
 class Parser(arguments: Seq[String]) extends ScallopConf(arguments){
 	val startTs = opt[String](required = true, descr = "Start timestamp")
 	val endTs = opt[String](required = true, descr = "end timestamp")
@@ -47,7 +29,7 @@ class Parser(arguments: Seq[String]) extends ScallopConf(arguments){
 
 def main(args: Array[String]) = {
 	val parsedArguments = new Parser(args)
-	val (sc, sqlContext) = Common.getSparkContext("merchantProductPage")
+	val (sc, sqlContext, sparkSession) = Common.getSparkContext("merchantProductPage")
 	// import sc.implicits._
 
 

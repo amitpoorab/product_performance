@@ -50,7 +50,7 @@ class Parser(arguments: Seq[String]) extends ScallopConf(arguments){
 
 def main(args: Array[String]) = {
 	val parsedArguments = new Parser(args)
-	val (sc, sqlContext) = Common.getSparkContext("eventActions")
+	val (sc, sqlContext, sparkSession) = Common.getSparkContext("eventActions")
 	// import sc.implicits._
 
 
