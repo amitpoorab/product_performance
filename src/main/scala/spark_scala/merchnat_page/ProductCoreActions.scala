@@ -54,12 +54,20 @@ object ProductCoreActions extends AbstractsJob[ProductCoreActionsParams,
 	}
 
 	def joinImpsAndCoreActions(impressionsAgg: DataFrame, coreActionsAgg: DataFrame): DataFrame = {
-			impressionsAgg.join(coreActionsAgg,
+			impressionsAgg.as("imps").join(coreActionsAgg.as("ca"),
 				impressionsAgg("experimentSlice") === coreActionsAgg("experimentSlice") &&
 				impressionsAgg("productID") === coreActionsAgg("productID") &&
 				impressionsAgg("platform") === coreActionsAgg("platform") &&
 				impressionsAgg("rank") === coreActionsAgg("rank")
 			)
+			.select("imps.experimentSlice",
+				"imps.productID",
+				"imps.platform",
+				"imps.rank",
+				"imps.renderedImpressions",
+				"ca.OnlineClick",
+				"ca.OnlineOrder"
+				)
 	}
 
 	def run(params: ProductCoreActionsParams): ProductCoreActionsResults = {
@@ -67,19 +75,10 @@ object ProductCoreActions extends AbstractsJob[ProductCoreActionsParams,
 		val coreActionsFilteredByTime = filterByTime(params.eventDF, params.startTs, params.endTs)
 		val aggregatedCoreAction = aggregateCoreActions(coreActionsFilteredByTime)
 		val aggregatedImpressions = aggregateImpressions(coreActionsFilteredByTime)
-		val joinedImpsAndAgg = joinImpsAndCoreActions(aggregatedImpressions, aggregatedCoreAction)
+		val joinedImpsAndAgg = joinImpsAndCoreActions(aggregatedImpressions, aggregatedCoreAction)		
 		ProductCoreActionsResults(joinedImpsAndAgg)
 	}
 	
-val schema = StructType(Seq(
-			StructField("core", StructType(Seq(
-				StructField("productID", StringType, true),
-				StructField("productID", StringType, true),
-				StructField("productID", StringType, true),
-				StructField("productID", StringType, true)	
-			)), true)
-	)
-)
 
 class Parser(arguments: Seq[String]) extends ScallopConf(arguments){
 	val startTs = opt[String](required = true, descr = "Start timestamp")

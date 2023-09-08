@@ -18,17 +18,6 @@ test("test merchant page product rankings"){
 
 	val offerEventsFilePath = getClass.getResource("/productEvents.tsv").getFile
 
-	// val offerEvents = loadEventsData(sqlcontext: SQLContext, path)
-	
-//	val rawEventschema = StructType(Seq(
-//			StructField("core", StructType(Seq(
-//				StructField("productID", StringType, true),
-//				StructField("productID", StringType, true),
-//				StructField("productID", StringType, true),
-//				StructField("productID", StringType, true)
-//			)), true)
-//	)
-//)
 
 	val offerEvents = sqlContext.read
 						.option("delimiter", "\t")
@@ -40,7 +29,6 @@ test("test merchant page product rankings"){
 	val endTs = Instant.parse("2023-01-01T23:00:00Z")
 
 	val results = ProductCoreActions.run(ProductCoreActionsParams(sc, sqlContext, startTs, endTs, offerEvents))
-	results.output.select("productID","platform","rank","coreAction").show(false)
 	results.output.show(false)
 }
 
